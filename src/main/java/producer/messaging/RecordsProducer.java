@@ -47,9 +47,7 @@ public class RecordsProducer {
 
     private void sendKafkaMessage(TopicRecord topicRecord, Producer<String, String> kafkaProducer) throws ExecutionException, InterruptedException {
         final ProducerRecord<String, String> kafkaRecord = new ProducerRecord<>(topicPrefix + topicRecord.getTopicName(), topicRecord.getRecordAsString());
-        System.out.println("sending " + topicRecord.toString());
         RecordMetadata recordMetadata = kafkaProducer.send(kafkaRecord).get();
-//        kafkaProducer.send(kafkaRecord);
         System.out.println("Kafka message send: " + kafkaRecord.value() + ", topic: " + recordMetadata.topic());
     }
 
