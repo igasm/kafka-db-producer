@@ -21,8 +21,9 @@ example:
 This file allows to configure DB connection details as connection url, user, password.
 Default settings allows to connect to Oracle DB created with provided docker-compose.yml file (in /docker folder).
 
-## Using Oracle database docker image
-go to docker folder
+## Using docker-compose file
+With provided docker-compose.yml file, containers with Oracle XE 11g and Kafka (Landoop environment) can be easily created.
+To create them go to docker folder:
 ```
 docker-compose up
 ```
@@ -32,6 +33,22 @@ to stop running container use (again from docker folder):
 docker-compose down
 ```
 
+Settings for connecting database from localhost:
+hostname: localhost
+port: 1521
+sid: xe
+username: demo
+password: demo
+
+Connecting with Kafka container terminal:
+```
+docker exec -ti kafka-service bash
+```
+
+Reading Kafka messages by topic (from Kafka container terminal)
+```
+kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic dbProducer-ORDERS --from-beginning
+```
 
 
 ## Running application

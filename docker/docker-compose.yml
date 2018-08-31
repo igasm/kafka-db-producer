@@ -1,10 +1,32 @@
-version: '3'
+version: '2'
+
 services:
-  oracledb:
+
+  oracle-db:
     image: wnameless/oracle-xe-11g
+    container_name: oracle-db
     ports:
-      - "1521:1521"
+      - 1521:1521
     environment:
       - ORACLE_ALLOW_REMOTE=true
     volumes:
       - ./db-init:/docker-entrypoint-initdb.d/
+
+  kafka-service:
+    image: landoop/fast-data-dev
+    container_name: kafka-service
+    environment:
+      ADV_HOST: 127.0.0.1
+      RUNTESTS: 0                 #without running Landoop integration tests
+      CONNECT_HEAP: 3G
+      DEBUG: 1
+    #    ports:
+#      - "2181:2181"   #Zookeper
+#      - "3030:3030"   #Landoop UI
+#      - "9092:9092"   #Kafka broker
+    ports:
+      - 2181:2181                 # Zookeeper
+      - 3030:3030                 # Landoop UI
+      - 8081-8083:8081-8083       # REST Proxy, Schema Registry, Kafka Connect ports
+      - 9581-9585:9581-9585       # JMX Ports
+      - 9092:9092                 # Kafka Broker

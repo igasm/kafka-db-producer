@@ -26,8 +26,6 @@
                     <archive>
                         <manifest>
                             <mainClass>producer.Main</mainClass>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
